@@ -1,0 +1,71 @@
+WITH 
+t_wlob ([wloborgid],[wloborgname]) AS
+(
+select distinct
+abc.[orgId] as 'wloborgid',
+abc.[orgName] as 'wloborgname'
+from [WDORG Workforce Management].[Workforce Summary Branch] abc
+where abc.[Deleted] is null
+and abc.[orgTypeCd] = 'wlob'
+),
+t_wreg ([wregorgid],[wregorgname],[wregorgparentid]) AS
+(
+select distinct
+def.[orgId] as 'wregorgid',
+def.[orgName] as 'wregorgname',
+def.[orgParentId] as 'wregorgparentid'
+from [WDORG Workforce Management].[Workforce Summary Branch] def
+where def.[Deleted] is null
+and def.[orgTypeCd] = 'wreg'
+and def.[orgSubType] = 'WB_Rollup'
+)
+,
+t_wbra ([wbrnorgid],[wbrnorgname],[wbrnorgparentid]) AS
+(
+select distinct
+ghj.[orgId] as 'wbrnorgid',
+ghj.[orgName] + ' (' + ghj.[orgCC] + ')' as 'wbrnorgname',
+ghj.[orgParentId] as 'wbrnorgparentid'
+from [WDORG Workforce Management].[Workforce Summary Branch] ghj
+where ghj.[Deleted] is null
+and ghj.[orgTypeCd] = 'wbrn'
+and ghj.[orgSubType] = 'WBHR'
+)
+,
+t_team ([teamid],[teamname],[teamorgid]) AS
+(
+select distinct
+iii.[teamId] as 'teamid',
+iii.[teamName] as 'teamname',
+iii.[orgId] as 'teamorgid'
+from [WDORG Workforce Management].[Workforce Summary Team] iii
+where iii.[Deleted] is null
+)
+,
+t_teammember ([teammemberid],[teammembername],[teamid]) AS
+(
+select distinct
+jjj.[RelationShipId] as 'teammemberid',
+jjj.[RelationShipId].[Full Name] + ' (' + jjj.[RelationShipId].[User ID] + ') - ' + jjj.[rrCodeRaw] as 'teammembername',
+jjj.[teamId] as 'teamid'
+from [WDORG Workforce Management].[Workforce Summary Team] jjj
+where jjj.[Deleted] is null
+)
+
+select 
+xxx.[wloborgname],
+xxx.[wloborgid],
+yyy.[wregorgname],
+yyy.[wregorgid],
+zzz.[wbrnorgname],
+zzz.[wbrnorgid],
+xx1.[teamname],
+xx1.[teamid],
+yy1.[teammembername],
+yy1.[teammemberid]
+from 
+t_wlob xxx left join t_wreg yyy on xxx.[wloborgid] = yyy.[wregorgparentid]
+left join t_wbra zzz on yyy.[wregorgid] = zzz.[wbrnorgparentid]
+left join t_team xx1 on zzz.[wbrnorgid] = xx1.[teamorgid]
+left join t_teammember yy1 on xx1.[teamid] = yy1.[teamid]
+order by xxx.[wloborgname],yyy.[wregorgname],zzz.[wbrnorgname],xx1.[teamname],yy1.[teammembername]

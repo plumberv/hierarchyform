@@ -1,0 +1,10 @@
+C:\Vicko\WDP\projects\mlorg\form1\bin\Debug\form1.exe.config
+C:\Vicko\WDP\projects\mlorg\form1\bin\Debug\form1.exe
+C:\Vicko\WDP\projects\mlorg\form1\bin\Debug\form1.pdb
+C:\Vicko\WDP\projects\mlorg\form1\obj\Debug\form1.Form1.resources
+C:\Vicko\WDP\projects\mlorg\form1\obj\Debug\form1.Properties.Resources.resources
+C:\Vicko\WDP\projects\mlorg\form1\obj\Debug\form1.csproj.GenerateResource.cache
+C:\Vicko\WDP\projects\mlorg\form1\obj\Debug\form1.csproj.CoreCompileInputs.cache
+C:\Vicko\WDP\projects\mlorg\form1\obj\Debug\form1.exe
+C:\Vicko\WDP\projects\mlorg\form1\obj\Debug\form1.pdb
+C:\Vicko\WDP\projects\mlorg\form1\obj\Debug\form1.csprojAssemblyReference.cache
