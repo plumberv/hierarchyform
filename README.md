@@ -4,6 +4,8 @@
 
 Instructions:
 ```
-
+Visual Studio (2017)
+>> Open Project >> form1.csproj
+Compile and Run
 ```
 
